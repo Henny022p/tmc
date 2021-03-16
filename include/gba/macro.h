@@ -18,7 +18,7 @@
 #define CpuFastFill(value, dest, size)                                                          \
     {                                                                                           \
         vu32 tmp = (vu32)(value);                                                               \
-        CpuFastSet((void*)&tmp, dest, CPU_FAST_SET_SRC_FIXED | ((size) / (32 / 8) & 0x1FFFFF)); \
+        CpuFastSet((void*)&tmp, dest, CPU_SET_SRC_FIXED | ((size) / (32 / 8) & 0x1FFFFF)); \
     }
 
 #define CpuFastFill16(value, dest, size) CpuFastFill(((value) << 16) | (value), (dest), (size))
