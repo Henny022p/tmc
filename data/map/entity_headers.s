@@ -17288,7 +17288,7 @@ Enemies_HouseInteriors2_LinksHouseSmith:: @ 080F2F74
 	entity_list_end
 
 TileEntities_HouseInteriors2_LinksHouseSmith:: @ 080F2F84
-	tile_entity type=0x2, paramA=0x16, paramB=0x56, paramC=0x85, paramD=0x1
+	tile_entity type=0x2, paramA=0x16, paramB=0x16, paramC=0x85, paramD=0x1
 	tile_entity_list_end
 
 Room_HouseInteriors2_LinksHouseSmith:: @ 080F2F94
