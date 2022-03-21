@@ -2976,25 +2976,57 @@ u32 FinalizeSave(void) {
         gSave.saved_status.start_pos_y = 0x38;
 
         // items
-        gSave.fillerD0[0x22] = 0x54;
-        gSave.fillerD0[0x23] = 0x51;
-        gSave.fillerD0[0x24] = 0x55;
-        gSave.fillerD0[0x25] = 0x55;
-        gSave.fillerD0[0x26] = 0x54;
-        gSave.fillerD0[0x27] = 0x45;
-        gSave.fillerD0[0x29] = 0x55;
-        gSave.fillerD0[0x33] = 0x15;
-        gSave.fillerD0[0x34] = 0x55;
-        gSave.fillerD0[0x35] = 0x55;
-        gSave.fillerD0[0x3B] = 0x55;
-        gSave.fillerD0[0x3E] = 0x55;
-        gSave.fillerD0[0x3F] = 0x05;
+        SetInventoryValue(ITEM_SMITH_SWORD, 1);
+        SetInventoryValue(ITEM_GREEN_SWORD, 1);
+        SetInventoryValue(ITEM_RED_SWORD, 1);
+        SetInventoryValue(ITEM_BLUE_SWORD, 1);
+        SetInventoryValue(ITEM_FOURSWORD, 1);
+        SetInventoryValue(ITEM_BOMBS, 1);
+        SetInventoryValue(ITEM_REMOTE_BOMBS, 1);
+        SetInventoryValue(ITEM_BOW, 1);
+        SetInventoryValue(ITEM_LIGHT_ARROW, 1);
+        SetInventoryValue(ITEM_BOOMERANG, 1);
+        SetInventoryValue(ITEM_MAGIC_BOOMERANG, 1);
+        SetInventoryValue(ITEM_SHIELD, 1);
+        SetInventoryValue(ITEM_MIRROR_SHIELD, 1);
+        SetInventoryValue(ITEM_LANTERN_OFF, 1);
+        SetInventoryValue(ITEM_GUST_JAR, 1);
+        SetInventoryValue(ITEM_PACCI_CANE, 1);
+        SetInventoryValue(ITEM_MOLE_MITTS, 1);
+        SetInventoryValue(ITEM_ROCS_CAPE, 1);
+        SetInventoryValue(ITEM_PEGASUS_BOOTS, 1);
+        // SetInventoryValue(ITEM_FIRE_ROD, 1);
+        SetInventoryValue(ITEM_OCARINA, 1);
+        SetInventoryValue(ITEM_BOTTLE1, 1);
+        SetInventoryValue(ITEM_BOTTLE2, 1);
+        SetInventoryValue(ITEM_BOTTLE3, 1);
+        SetInventoryValue(ITEM_BOTTLE4, 1);
+        SetInventoryValue(ITEM_GRIP_RING, 1);
+        SetInventoryValue(ITEM_POWER_BRACELETS, 1);
+        SetInventoryValue(ITEM_FLIPPERS, 1);
+        SetInventoryValue(ITEM_SKILL_SPIN_ATTACK, 1);
+        SetInventoryValue(ITEM_SKILL_ROLL_ATTACK, 1);
+        SetInventoryValue(ITEM_SKILL_DASH_ATTACK, 1);
+        SetInventoryValue(ITEM_SKILL_ROCK_BREAKER, 1);
+        SetInventoryValue(ITEM_SKILL_SWORD_BEAM, 1);
+        SetInventoryValue(ITEM_SKILL_GREAT_SPIN, 1);
+        SetInventoryValue(ITEM_SKILL_DOWN_THRUST, 1);
+        SetInventoryValue(ITEM_SKILL_PERIL_BEAM, 1);
+        SetInventoryValue(ITEM_WALLET, 1);
+        SetInventoryValue(ITEM_BOMBBAG, 1);
+        SetInventoryValue(ITEM_LARGE_QUIVER, 1);
+        SetInventoryValue(ITEM_KINSTONE_BAG, 1);
+        SetInventoryValue(ITEM_ARROW_BUTTERFLY, 1);
+        SetInventoryValue(ITEM_DIG_BUTTERFLY, 1);
+        SetInventoryValue(ITEM_SWIM_BUTTERFLY, 1);
+        SetInventoryValue(ITEM_SKILL_FAST_SPIN, 1);
+        SetInventoryValue(ITEM_SKILL_FAST_SPLIT, 1);
+        SetInventoryValue(ITEM_SKILL_LONG_SPIN, 1);
 
-        // bottles
-        gSave.stats.bottles[0] = 0x20;
-        gSave.stats.bottles[1] = 0x20;
-        gSave.stats.bottles[2] = 0x20;
-        gSave.stats.bottles[3] = 0x20;
+        gSave.stats.bottles[0] = ITEM_BOTTLE_EMPTY;
+        gSave.stats.bottles[1] = ITEM_BOTTLE_EMPTY;
+        gSave.stats.bottles[2] = ITEM_BOTTLE_EMPTY;
+        gSave.stats.bottles[3] = ITEM_BOTTLE_EMPTY;
 
         gSave.stats.bombBagType = 3;
         gSave.stats.bombCount = 99;
@@ -3003,11 +3035,11 @@ u32 FinalizeSave(void) {
         gSave.stats.walletType = 3;
         gSave.stats.rupees = 0;
 
-        SetGlobalFlag(0x540); // DWS lilypad
-        SetGlobalFlag(0x14);  // Ezlo
-        SetGlobalFlag(0x2C8); // Ezlo trigger links house
-        SetGlobalFlag(0x2C9); // Ezlo trigger links house
-        SetGlobalFlag(0x2CA); // Ezlo trigger links house
+        SetLocalFlagByBank(FLAG_BANK_5, LV1_12_15);       // DWS lilypad
+        SetGlobalFlag(EZERO_1ST);                         // Ezlo
+        SetLocalFlagByBank(FLAG_BANK_2, MHOUSE_10_CAP_0); // Ezlo trigger links house entrance
+        SetLocalFlagByBank(FLAG_BANK_2, MHOUSE_15_CAP_0); // Ezlo trigger links house bedroom
+        SetLocalFlagByBank(FLAG_BANK_2, MHOUSE_15_CAP_1); // Ezlo trigger links house ?
     }
     if (gSave.name[0] == 0) {
         MemCopy(gUnk_0811E470, &gSave.name, FILENAME_LENGTH - 1);
