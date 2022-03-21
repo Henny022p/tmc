@@ -2965,8 +2965,8 @@ u32 FinalizeSave(void) {
         gSave.invalid = 0;
         gSave.initialized = 1;
         gSave.global_progress = 1;
-        gSave.stats.health = 24;
-        gSave.stats.maxHealth = 24;
+        gSave.stats.health = 20 * 8;
+        gSave.stats.maxHealth = 20 * 8;
         gSave.saved_status.area_next = 0x22;
         gSave.saved_status.room_next = 0x15; // links room
         gSave.saved_status.start_anim = 0;
@@ -2974,6 +2974,40 @@ u32 FinalizeSave(void) {
         gSave.saved_status.layer = 1;
         gSave.saved_status.start_pos_x = 0x90;
         gSave.saved_status.start_pos_y = 0x38;
+
+        // items
+        gSave.fillerD0[0x22] = 0x54;
+        gSave.fillerD0[0x23] = 0x51;
+        gSave.fillerD0[0x24] = 0x55;
+        gSave.fillerD0[0x25] = 0x55;
+        gSave.fillerD0[0x26] = 0x54;
+        gSave.fillerD0[0x27] = 0x45;
+        gSave.fillerD0[0x29] = 0x55;
+        gSave.fillerD0[0x33] = 0x15;
+        gSave.fillerD0[0x34] = 0x55;
+        gSave.fillerD0[0x35] = 0x55;
+        gSave.fillerD0[0x3B] = 0x55;
+        gSave.fillerD0[0x3E] = 0x55;
+        gSave.fillerD0[0x3F] = 0x05;
+
+        // bottles
+        gSave.stats.bottles[0] = 0x20;
+        gSave.stats.bottles[1] = 0x20;
+        gSave.stats.bottles[2] = 0x20;
+        gSave.stats.bottles[3] = 0x20;
+
+        gSave.stats.bombBagType = 3;
+        gSave.stats.bombCount = 99;
+        gSave.stats.quiverType = 3;
+        gSave.stats.arrowCount = 99;
+        gSave.stats.walletType = 3;
+        gSave.stats.rupees = 0;
+
+        SetGlobalFlag(0x540); // DWS lilypad
+        SetGlobalFlag(0x14);  // Ezlo
+        SetGlobalFlag(0x2C8); // Ezlo trigger links house
+        SetGlobalFlag(0x2C9); // Ezlo trigger links house
+        SetGlobalFlag(0x2CA); // Ezlo trigger links house
     }
     if (gSave.name[0] == 0) {
         MemCopy(gUnk_0811E470, &gSave.name, FILENAME_LENGTH - 1);
