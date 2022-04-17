@@ -2304,17 +2304,26 @@ u32 GetInventoryValue(u32 item) {
     return gUnk_02002B32[tmp] >> ((item & 3) << 1) & 3;
 }
 
-ASM_FUNC("asm/non_matching/playerUtils/SetInventoryValue.inc", void SetInventoryValue(u32 a, u32 b))
+u32 SetInventoryValue(u32 item, u32 value){
+    u32 masked_value, value_update, old_value, offset;
+    u8* address;
 
-NONMATCH("asm/non_matching/playerUtils/sub_0807CAC8.inc", void sub_0807CAC8(u32 param_1)) {
-    gSave.unk46C[gArea.dungeon_idx + 0x10] |= (1 << param_1);
+    address = &gUnk_02002B32[item / 4];
+    offset = (item % 4) * 2;
+    value_update = value << offset;
+    old_value = *address;
+    masked_value = old_value & (3<<offset);
+    gUnk_02002B32[item / 4] = (old_value ^ masked_value) | value_update;
+    return masked_value >> offset;
 }
-END_NONMATCH
 
-NONMATCH("asm/non_matching/playerUtils/sub_0807CAEC.inc", u32 sub_0807CAEC(u32 param_1)) {
-    return gSave.unk46C[gArea.dungeon_idx + 0x10] >> param_1 & 1;
+void sub_0807CAC8(u32 param_1) {
+    gSave.unk47C[gArea.dungeon_idx] |= (1 << param_1);
 }
-END_NONMATCH
+
+u32 sub_0807CAEC(u32 param_1) {
+    return gSave.unk47C[gArea.dungeon_idx] >> param_1 & 1;
+}
 
 u32 CheckLocalFlagByBank(u32 bank, u32 flag) {
     return ReadBit(gSave.flags, bank + flag);
