@@ -34,7 +34,6 @@ typedef struct {
 extern u8 gMapData;
 extern const u8 gUnk_020176E0[];
 extern const ScreenTransitionData gUnk_0813AD88[];
-extern u8 gUnk_02002B32[];
 
 bool32 sub_08077758(PlayerEntity*);
 bool32 sub_080777A0();
@@ -2300,20 +2299,20 @@ u32 FinalizeSave(void) {
 }
 
 u32 GetInventoryValue(u32 item) {
-    u32 tmp = item / 4;
-    return gUnk_02002B32[tmp] >> ((item & 3) << 1) & 3;
+    u8* address = &gSave.inventory[item / 4];
+    return *address >> ((item & 3) << 1) & 3;
 }
 
 u32 SetInventoryValue(u32 item, u32 value){
     u32 masked_value, value_update, old_value, offset;
     u8* address;
 
-    address = &gUnk_02002B32[item / 4];
+    address = &gSave.inventory[item / 4];
     offset = (item % 4) * 2;
     value_update = value << offset;
     old_value = *address;
     masked_value = old_value & (3<<offset);
-    gUnk_02002B32[item / 4] = (old_value ^ masked_value) | value_update;
+    *address = (old_value ^ masked_value) | value_update;
     return masked_value >> offset;
 }
 
