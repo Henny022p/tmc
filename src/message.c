@@ -9,7 +9,7 @@
 #include "ui.h"
 
 #define MESSAGE_ADVANCE_KEYS (A_BUTTON | B_BUTTON | DPAD_ANY | R_BUTTON)
-#define MESSAGE_PRESS_ANY_ADVANCE_KEYS ((gInput.newKeys & MESSAGE_ADVANCE_KEYS) != 0)
+#define MESSAGE_PRESS_ANY_ADVANCE_KEYS TRUE
 
 #define MESSAGE_WIDTH 0x20
 #define MESSAGE_POSITION_INDEX(window) ((window).yPos * MESSAGE_WIDTH + (window).xPos)
@@ -323,8 +323,7 @@ static void TextDispInit(TextRender* this) {
 }
 
 static void TextDispUpdate(TextRender* this) {
-    static const u8 speeds[] = { 5, 3, 1 };
-    u32 speedModifier;
+    // static const u8 speeds[] = { 5, 3, 1 };
     s32 numCharsToRead, pxDrawn;
 
     if (this->delay != 0) {
@@ -332,12 +331,8 @@ static void TextDispUpdate(TextRender* this) {
         return;
     }
 
-    if ((gInput.heldKeys & B_BUTTON) != 0) {
-        speedModifier = 8;
-    } else {
-        speedModifier = 1;
-    }
-    this->typeSpeed -= speedModifier;
+    // equivalent to always holding B
+    this->typeSpeed -= 8;
 
     if (this->typeSpeed > 0) {
         return;
@@ -346,7 +341,8 @@ static void TextDispUpdate(TextRender* this) {
     numCharsToRead = 0;
     do {
         numCharsToRead++;
-        this->typeSpeed += speeds[this->message.textSpeed];
+        // always use fast text speed
+        this->typeSpeed += 1;
     } while (this->typeSpeed <= 0);
 
     pxDrawn = 0;
