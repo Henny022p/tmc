@@ -9,7 +9,7 @@
 #include "ui.h"
 
 #define MESSAGE_ADVANCE_KEYS (A_BUTTON | B_BUTTON | DPAD_ANY | R_BUTTON)
-#define MESSAGE_PRESS_ANY_ADVANCE_KEYS TRUE
+#define MESSAGE_PRESS_ANY_ADVANCE_KEYS ((gInput.newKeys & MESSAGE_ADVANCE_KEYS) != 0)
 
 #define MESSAGE_WIDTH 0x20
 #define MESSAGE_POSITION_INDEX(window) ((window).yPos * MESSAGE_WIDTH + (window).xPos)
@@ -323,7 +323,7 @@ static void TextDispInit(TextRender* this) {
 }
 
 static void TextDispUpdate(TextRender* this) {
-    // static const u8 speeds[] = { 5, 3, 1 };
+    u32 speedModifier;
     s32 numCharsToRead, pxDrawn;
 
     if (this->delay != 0) {
@@ -331,8 +331,12 @@ static void TextDispUpdate(TextRender* this) {
         return;
     }
 
-    // equivalent to always holding B
-    this->typeSpeed -= 8;
+    if (((gInput.heldKeys & B_BUTTON) != 0) || (this->message.textSpeed > 0)) {
+        speedModifier = 8;
+    } else {
+        speedModifier = 1;
+    }
+    this->typeSpeed -= speedModifier;
 
     if (this->typeSpeed > 0) {
         return;
@@ -341,7 +345,6 @@ static void TextDispUpdate(TextRender* this) {
     numCharsToRead = 0;
     do {
         numCharsToRead++;
-        // always use fast text speed
         this->typeSpeed += 1;
     } while (this->typeSpeed <= 0);
 
@@ -351,7 +354,8 @@ static void TextDispUpdate(TextRender* this) {
         if (pxCnt == 0 || this->delay != 0 || this->newlineDelay != 0)
             break;
         pxDrawn += pxCnt;
-        numCharsToRead--;
+        if (this->message.textSpeed < 2)
+            numCharsToRead--;
     } while (0 < numCharsToRead);
 
     if (pxDrawn != 0) {
@@ -583,7 +587,7 @@ static void TextDispWait(TextRender* this) {
         if (--this->_94 == 0) {
             this->renderStatus = RENDER_ROLL;
         }
-    } else if (MESSAGE_PRESS_ANY_ADVANCE_KEYS) {
+    } else if (MESSAGE_PRESS_ANY_ADVANCE_KEYS || this->message.textSpeed > 0) {
         SoundReq(SFX_TEXTBOX_SWAP);
         this->_98.bytes.b2 = 0;
         this->renderStatus = RENDER_ROLL;
@@ -601,7 +605,7 @@ static void TextDispRoll(TextRender* this) {
 static void TextDispDie(TextRender* this) {
     gMessage.unk = 0;
     SetDoTextBox(7);
-    if ((this->_8e != 1) && (this->_8e == 2 || MESSAGE_PRESS_ANY_ADVANCE_KEYS)) {
+    if ((this->_8e != 1) && (this->_8e == 2 || MESSAGE_PRESS_ANY_ADVANCE_KEYS || this->message.textSpeed > 0)) {
         StatusUpdate(MSG_CLOSE);
     }
 }
