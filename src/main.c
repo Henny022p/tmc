@@ -14,6 +14,8 @@
 #include "screen.h"
 #include "sound.h"
 
+#include "mgba.h"
+
 extern u32 gRand;
 
 static void InitOverlays(void);
@@ -35,6 +37,9 @@ void (*const sTaskHandlers[])(void) = {
 
 void AgbMain(void) {
     // Initialization
+    if (!mgba_open()) {
+        while (1) {}
+    }
     InitOverlays();
     InitSound();
     InitDMA();

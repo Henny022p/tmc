@@ -7,6 +7,7 @@
 #include "message.h"
 #include "save.h"
 #include "ui.h"
+#include "mgba.h"
 
 #define MESSAGE_ADVANCE_KEYS (A_BUTTON | B_BUTTON | DPAD_ANY | R_BUTTON)
 #define MESSAGE_PRESS_ANY_ADVANCE_KEYS ((gInput.newKeys & MESSAGE_ADVANCE_KEYS) != 0)
@@ -351,12 +352,23 @@ static void TextDispUpdate(TextRender* this) {
     pxDrawn = 0;
     do {
         u32 pxCnt = RunTextCommand(this);
-        if (pxCnt == 0 || this->delay != 0 || this->newlineDelay != 0)
+        if (pxCnt == 0) {
+            mgba_puts("TextDispUpdate: break 0", MGBA_LOG_DEBUG);
             break;
+        }
+        if (this->delay != 0) {
+            mgba_puts("TextDispUpdate: break 1", MGBA_LOG_DEBUG);
+            break;
+        }
+        if (this->newlineDelay != 0) {
+            mgba_puts("TextDispUpdate: break 2", MGBA_LOG_ERROR);
+            break;
+        }
         pxDrawn += pxCnt;
         if (this->message.textSpeed < 2)
             numCharsToRead--;
     } while (0 < numCharsToRead);
+    mgba_puts("TextDispUpdate: broken", MGBA_LOG_DEBUG);
 
     if (pxDrawn != 0) {
         gTextRender.updateDraw = 1;
