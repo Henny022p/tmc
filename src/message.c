@@ -361,7 +361,7 @@ static void TextDispUpdate(TextRender* this) {
             break;
         }
         if (this->newlineDelay != 0) {
-            mgba_puts("TextDispUpdate: break 2", MGBA_LOG_ERROR);
+            mgba_puts("TextDispUpdate: break 2", MGBA_LOG_DEBUG);
             break;
         }
         pxDrawn += pxCnt;
