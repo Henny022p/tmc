@@ -5960,7 +5960,8 @@ extern EntityData gUnk_080F82E0;
 void sub_StateChange_HyruleField_WesternWoodsNorth(void) {
     CloudOverlayManager_Main(NULL);
     if (CheckGlobalFlag(LV2_CLEAR) && GetInventoryValue(ITEM_RED_SWORD) && !CheckLocalFlag(SOUGEN_08_TORITSUKI)) {
-        LoadRoomEntityList(&gUnk_080F82E0);
+        // skip king cutscene
+        //LoadRoomEntityList(&gUnk_080F82E0);
     }
 }
 

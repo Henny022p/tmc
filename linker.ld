@@ -403,6 +403,7 @@ SECTIONS {
         src/enterPortalSubtask.o(.text);
         src/room.o(.text);
         src/roomInit.o(.text);
+        src/roomInit.o(.rodata);
         src/fade.o(.text);
         src/fileselect.o(.text);
         src/game.o(.text);
@@ -883,6 +884,7 @@ SECTIONS {
         src/mgba.o(.text);
         *libc.a:memcpy.o(.text);
         *libc.a:strncpy.o(.text);
+        *libc.a:strlen.o(.text);
         /* handwritten assembly in arm mode */
         asm/src/intr.o(.text);
 
@@ -1713,6 +1715,7 @@ SECTIONS {
         data/sound/direct_sound_samples.o(.rodata);
         data/sound/sounds.o(.rodata);
         src/eeprom.o(.rodata);
+        src/mgba.o(.rodata);
     } >rom
 
     /* DWARF 2 sections */
