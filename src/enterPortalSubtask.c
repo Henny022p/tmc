@@ -223,7 +223,7 @@ void Subtask_PortalCutscene_1(void) {
 
 bool32 sub_0804ACA8(void) {
     if ((gInput.newKeys & (R_BUTTON | B_BUTTON)) == 0) {
-        return 0;
+        return FALSE;
     } else {
         return sub_0804AD18();
     }
@@ -250,16 +250,11 @@ bool32 sub_0804AD18(void) {
         case 0:
         case 1:
         case 2:
-            if (!CheckGlobalFlag(ENTRANCE_0 + gArea.portal_type)) {
-                return FALSE;
-            }
-            // else: return TRUE implicitely, because it's stored in r0. But does not match if returning explicitely.
-            break;
-        case 6:
-            return FALSE;
+            return TRUE;
         case 3:
         case 4:
         case 5:
+        case 6:
         default:
             return FALSE;
     }
