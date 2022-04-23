@@ -110,35 +110,7 @@ script_08015104:
 	SetLocalFlag SOUGEN_06_SAIKAI
 	EzloMessage TEXT_VAATI, 0x0c
 	WaitUntilTextboxCloses
-	@ Ezlo cutscene starts
-	CameraTargetPlayer
-	SetFadeTime 0x0004
-	_0807E80C 0x00000000
-	WaitForFadeFinish
-	Call sub_08053B3C
-	BeginBlock
-	SetPlayerIdle
-	CallWithArg SetPlayerFlag, PL_NO_CAP
-	MoveEntityToPlayer
-	SetScrollSpeed 4
-	CameraTargetEntity
-	SetFadeTime 0x0100
-	SetFade4
-	_0807E80C 0x00000000
-	EndBlock
-	StartPlayerScript script_PlayerSeenOriginStory
-	WaitForSyncFlagAndClear 0x00000001
-	LoadRoomEntityList gUnk_080F7CB0
-	SetFadeTime 0x0004
-	_0807E800 0x00000000
-	WaitForFadeFinish
-	SetSyncFlag 0x00000008
-	WaitForSyncFlagAndClear 0x00000010
-	BeginBlock
-	_0807E8E4_2
-	EzloMessage TEXT_VAATI, 0x15
-	EndBlock
-	WaitUntilTextboxCloses
+	@ Ezlo cutscene skip
 	SetScrollSpeed 4
 	CameraTargetPlayer
 	Call EnableRandomDrops
