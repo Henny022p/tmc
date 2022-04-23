@@ -2310,9 +2310,9 @@ extern u8 gUpdateVisibleTiles;
 extern u32 gUsedPalettes;
 
 void sub_StateChange_DeepwoodShrineBoss_Main(void) {
-
-    if (!CheckLocalFlag(0x48)) {
-        SetLocalFlag(0x48);
+    SetLocalFlag(LV1_16_1STEND);
+    if (!CheckLocalFlag(LV1_16_1STEND)) {
+        SetLocalFlag(LV1_16_1STEND);
         MenuFadeIn(5, 0);
         gUpdateVisibleTiles = 0;
         gFadeControl.active = 0;
@@ -2611,7 +2611,7 @@ u32 sub_unk3_FortressOfWinds_Mazaal(void) {
 
 void sub_StateChange_FortressOfWinds_Mazaal(void) {
 
-    if (!CheckFlags(0x31)) {
+    if (!CheckFlags(LV3_16_BOSSDIE)) {
         if (gRoomTransition.field_0x38 == 0) {
             SoundReq(SONG_STOP_BGM);
         } else {
