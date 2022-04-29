@@ -5962,6 +5962,7 @@ void sub_StateChange_HyruleField_WesternWoodsNorth(void) {
     if (CheckGlobalFlag(LV2_CLEAR) && GetInventoryValue(ITEM_RED_SWORD) && !CheckLocalFlag(SOUGEN_08_TORITSUKI)) {
         // skip king cutscene
         //LoadRoomEntityList(&gUnk_080F82E0);
+        SetLocalFlag(SOUGEN_08_TORITSUKI);
     }
 }
 
