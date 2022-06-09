@@ -3466,6 +3466,10 @@ void SurfaceAction_CloneTile(Entity* this) {
                 //! @bug: n is not initialized
                 break;
         }
+        if (gSave.saved_status.area_next == AREA_ROYAL_VALLEY)
+        {
+            n = 2;
+        }
         for (i = 0; i < n; ++i) {
             if (gPlayerClones[i] == 0)
                 break;
