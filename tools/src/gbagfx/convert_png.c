@@ -7,8 +7,9 @@
 #include "convert_png.h"
 #include "gfx.h"
 
-static FILE* PngReadOpen(char* path, png_structp* pngStruct, png_infop* pngInfo) {
-    FILE* fp = fopen(path, "rb");
+static FILE *PngReadOpen(char *path, png_structp *pngStruct, png_infop *pngInfo)
+{
+    FILE *fp = fopen(path, "rb");
 
     if (fp == NULL)
         FATAL_ERROR("Failed to open \"%s\" for reading.\n", path);
@@ -44,27 +45,31 @@ static FILE* PngReadOpen(char* path, png_structp* pngStruct, png_infop* pngInfo)
     return fp;
 }
 
-static unsigned char* ConvertBitDepth(unsigned char* src, int srcBitDepth, int destBitDepth, int numPixels) {
+static unsigned char *ConvertBitDepth(unsigned char *src, int srcBitDepth, int destBitDepth, int numPixels)
+{
     // Round the number of bits up to the next 8 and divide by 8 to get the number of bytes.
     int srcSize = ((numPixels * srcBitDepth + 7) & ~7) / 8;
     int destSize = ((numPixels * destBitDepth + 7) & ~7) / 8;
-    unsigned char* output = calloc(destSize, 1);
-    unsigned char* dest = output;
+    unsigned char *output = calloc(destSize, 1);
+    unsigned char *dest = output;
     int i;
     int j;
     int destBit = 8 - destBitDepth;
 
-    for (i = 0; i < srcSize; i++) {
+    for (i = 0; i < srcSize; i++)
+    {
         unsigned char srcByte = src[i];
 
-        for (j = 8 - srcBitDepth; j >= 0; j -= srcBitDepth) {
+        for (j = 8 - srcBitDepth; j >= 0; j -= srcBitDepth)
+        {
             unsigned char pixel = (srcByte >> j) % (1 << srcBitDepth);
 
             if (pixel >= (1 << destBitDepth))
                 FATAL_ERROR("Image exceeds the maximum color value for a %ibpp image.\n", destBitDepth);
             *dest |= pixel << destBit;
             destBit -= destBitDepth;
-            if (destBit < 0) {
+            if (destBit < 0)
+            {
                 dest++;
                 destBit = 8 - destBitDepth;
             }
@@ -74,11 +79,12 @@ static unsigned char* ConvertBitDepth(unsigned char* src, int srcBitDepth, int d
     return output;
 }
 
-void ReadPng(char* path, struct Image* image) {
+void ReadPng(char *path, struct Image *image)
+{
     png_structp png_ptr;
     png_infop info_ptr;
 
-    FILE* fp = PngReadOpen(path, &png_ptr, &info_ptr);
+    FILE *fp = PngReadOpen(path, &png_ptr, &info_ptr);
 
     int bit_depth = png_get_bit_depth(png_ptr, info_ptr);
 
@@ -90,6 +96,11 @@ void ReadPng(char* path, struct Image* image) {
     // Check if the image has a palette so that we can tell if the colors need to be inverted later.
     // Don't read the palette because it's not needed for now.
     image->hasPalette = (color_type == PNG_COLOR_TYPE_PALETTE);
+
+    if (color_type == PNG_COLOR_TYPE_GRAY)
+    {
+        fputs("WARNING: loading grayscale pngs is deprecated", stderr);
+    }
 
     image->width = png_get_image_width(png_ptr, info_ptr);
     image->height = png_get_image_height(png_ptr, info_ptr);
@@ -107,7 +118,9 @@ void ReadPng(char* path, struct Image* image) {
         FATAL_ERROR("Failed to allocate row pointers.\n");
 
     for (int i = 0; i < image->height; i++)
-        row_pointers[i] = (png_bytep)(image->pixels + (i * rowbytes));
+    {
+        row_pointers[i] = (png_bytep) (image->pixels + (i * rowbytes));
+    }
 
     if (setjmp(png_jmpbuf(png_ptr)))
         FATAL_ERROR("Error reading from \"%s\".\n", path);
@@ -119,8 +132,9 @@ void ReadPng(char* path, struct Image* image) {
     free(row_pointers);
     fclose(fp);
 
-    if (bit_depth != image->bitDepth) {
-        unsigned char* src = image->pixels;
+    if (bit_depth != image->bitDepth)
+    {
+        unsigned char *src = image->pixels;
 
         if (bit_depth != 1 && bit_depth != 2 && bit_depth != 4 && bit_depth != 8)
             FATAL_ERROR("Bit depth of image must be 1, 2, 4, or 8.\n");
@@ -130,13 +144,14 @@ void ReadPng(char* path, struct Image* image) {
     }
 }
 
-void ReadPngPalette(char* path, struct Palette* palette) {
+void ReadPngPalette(char *path, struct Palette *palette)
+{
     png_structp png_ptr;
     png_infop info_ptr;
     png_colorp colors;
     int numColors;
 
-    FILE* fp = PngReadOpen(path, &png_ptr, &info_ptr);
+    FILE *fp = PngReadOpen(path, &png_ptr, &info_ptr);
 
     if (png_get_color_type(png_ptr, info_ptr) != PNG_COLOR_TYPE_PALETTE)
         FATAL_ERROR("The image \"%s\" does not contain a palette.\n", path);
@@ -148,7 +163,8 @@ void ReadPngPalette(char* path, struct Palette* palette) {
         FATAL_ERROR("Images with more than 256 colors are not supported.\n");
 
     palette->numColors = numColors;
-    for (int i = 0; i < numColors; i++) {
+    for (int i = 0; i < numColors; i++)
+    {
         palette->colors[i].red = colors[i].red;
         palette->colors[i].green = colors[i].green;
         palette->colors[i].blue = colors[i].blue;
@@ -159,13 +175,15 @@ void ReadPngPalette(char* path, struct Palette* palette) {
     fclose(fp);
 }
 
-void SetPngPalette(png_structp png_ptr, png_infop info_ptr, struct Palette* palette) {
+void SetPngPalette(png_structp png_ptr, png_infop info_ptr, const struct Palette *palette)
+{
     png_colorp colors = malloc(palette->numColors * sizeof(png_color));
 
     if (colors == NULL)
         FATAL_ERROR("Failed to allocate PNG palette.\n");
 
-    for (int i = 0; i < palette->numColors; i++) {
+    for (int i = 0; i < palette->numColors; i++)
+    {
         colors[i].red = palette->colors[i].red;
         colors[i].green = palette->colors[i].green;
         colors[i].blue = palette->colors[i].blue;
@@ -176,8 +194,31 @@ void SetPngPalette(png_structp png_ptr, png_infop info_ptr, struct Palette* pale
     free(colors);
 }
 
-void WritePng(char* path, struct Image* image) {
-    FILE* fp = fopen(path, "wb");
+static const struct Palette grayscale_pallete_4 = {
+        .colors = {
+                { 0, 0, 0 },
+                { 17, 17, 17 },
+                { 34, 34, 34 },
+                { 51, 51, 51 },
+                { 68, 68, 68 },
+                { 85, 85, 85 },
+                { 102, 102, 102 },
+                { 119, 119, 119 },
+                { 136, 136, 136 },
+                { 153, 153, 153 },
+                { 170, 170, 170 },
+                { 187, 187, 187 },
+                { 204, 204, 204 },
+                { 221, 221, 221 },
+                { 238, 238, 238 },
+                { 255, 255, 255 },
+        },
+        .numColors = 16,
+};
+
+void WritePng(char *path, struct Image *image)
+{
+    FILE *fp = fopen(path, "wb");
 
     if (fp == NULL)
         FATAL_ERROR("Failed to open \"%s\" for writing.\n", path);
@@ -200,18 +241,25 @@ void WritePng(char* path, struct Image* image) {
     if (setjmp(png_jmpbuf(png_ptr)))
         FATAL_ERROR("Error writing header for \"%s\".\n", path);
 
-    int color_type = image->hasPalette ? PNG_COLOR_TYPE_PALETTE : PNG_COLOR_TYPE_GRAY;
-
-    png_set_IHDR(png_ptr, info_ptr, image->width, image->height, image->bitDepth, color_type, PNG_INTERLACE_NONE,
+    png_set_IHDR(png_ptr, info_ptr, image->width, image->height, image->bitDepth, PNG_COLOR_TYPE_PALETTE,
+                 PNG_INTERLACE_NONE,
                  PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
 
-    if (image->hasPalette) {
+    if (image->hasPalette)
+    {
         SetPngPalette(png_ptr, info_ptr, &image->palette);
+    }
+    else
+    {
+        if (image->bitDepth != 4)
+            FATAL_ERROR("ERROR: TODO: only bit depth 4 supported at the moment");
+        SetPngPalette(png_ptr, info_ptr, &grayscale_pallete_4);
+    }
 
-        if (image->hasTransparency) {
-            png_byte trans = 0;
-            png_set_tRNS(png_ptr, info_ptr, &trans, 1, 0);
-        }
+    if (image->hasTransparency)
+    {
+        png_byte trans = 0;
+        png_set_tRNS(png_ptr, info_ptr, &trans, 1, 0);
     }
 
     png_write_info(png_ptr, info_ptr);
@@ -224,7 +272,9 @@ void WritePng(char* path, struct Image* image) {
     int rowbytes = png_get_rowbytes(png_ptr, info_ptr);
 
     for (int i = 0; i < image->height; i++)
-        row_pointers[i] = (png_bytep)(image->pixels + (i * rowbytes));
+    {
+        row_pointers[i] = (png_bytep) (image->pixels + (i * rowbytes));
+    }
 
     if (setjmp(png_jmpbuf(png_ptr)))
         FATAL_ERROR("Error writing \"%s\".\n", path);

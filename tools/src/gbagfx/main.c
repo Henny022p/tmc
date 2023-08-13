@@ -31,7 +31,7 @@ void ConvertGbaToPng(char* inputPath, char* outputPath, struct GbaToPngOptions* 
     }
 
     ReadImage(inputPath, options->width, options->bitDepth, options->metatileWidth, options->metatileHeight, &image,
-              !image.hasPalette);
+              false);
 
     image.hasTransparency = options->hasTransparency;
 
@@ -48,7 +48,7 @@ void ConvertPngToGba(char* inputPath, char* outputPath, struct PngToGbaOptions* 
     ReadPng(inputPath, &image);
 
     WriteImage(outputPath, options->numTiles, options->bitDepth, options->metatileWidth, options->metatileHeight,
-               &image, !image.hasPalette);
+               &image, false);
 
     FreeImage(&image);
 }
