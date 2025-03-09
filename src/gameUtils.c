@@ -23,7 +23,6 @@
 #include "ui.h"
 #include "subtask.h"
 #include "beanstalkSubtask.h"
-#include "structures.h"
 #include "pauseMenu.h"
 
 u32 StairsAreValid(void);

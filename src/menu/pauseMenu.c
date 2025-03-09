@@ -17,7 +17,6 @@
 #include "save.h"
 #include "screen.h"
 #include "sound.h"
-#include "structures.h"
 #include "subtask.h"
 #include "ui.h"
 #include "affine.h"

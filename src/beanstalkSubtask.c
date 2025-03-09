@@ -17,7 +17,6 @@
 #include "player.h"
 #include "screen.h"
 #include "scroll.h"
-#include "structures.h"
 #include "tiles.h"
 #include "affine.h"
 #include "subtask.h"

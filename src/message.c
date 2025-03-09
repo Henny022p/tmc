@@ -6,7 +6,6 @@
 #include "message.h"
 #include "save.h"
 #include "ui.h"
-#include "structures.h"
 #include "vram.h"
 
 #define MESSAGE_ADVANCE_KEYS (A_BUTTON | B_BUTTON | DPAD_ANY | R_BUTTON)

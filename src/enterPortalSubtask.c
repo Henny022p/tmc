@@ -9,7 +9,7 @@
 #include "area.h"
 #include "common.h"
 #include "entity.h"
-#include "structures.h"
+#include "beanstalkSubtask.h"
 #include "game.h"
 #include "main.h"
 #include "object.h"

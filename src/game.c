@@ -12,7 +12,6 @@
 #include "common.h"
 #include "entity.h"
 #include "fileselect.h"
-#include "structures.h"
 #include "main.h"
 #include "manager/diggingCaveEntranceManager.h"
 #include "message.h"

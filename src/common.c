@@ -16,7 +16,6 @@
 #include "screen.h"
 #include "sound.h"
 #include "subtask.h"
-#include "structures.h"
 
 extern u8 gUnk_03003DE0;
 extern u8 gzHeap[0x1000];

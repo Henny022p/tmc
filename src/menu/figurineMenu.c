@@ -8,7 +8,6 @@
 
 #include "common.h"
 #include "flags.h"
-#include "structures.h"
 #include "game.h"
 #include "main.h"
 #include "menu.h"
