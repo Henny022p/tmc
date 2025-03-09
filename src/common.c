@@ -244,7 +244,7 @@ void LoadPalettes(const u8* src, s32 destPaletteNum, s32 numPalettes) {
     u32 size = numPalettes * 32;
     u32 usedPalettesMask = 1 << destPaletteNum;
     while (--numPalettes > 0) {
-        usedPalettesMask |= (usedPalettesMask << 1);
+        usedPalettesMask |= usedPalettesMask << 1;
     }
     gUsedPalettes |= usedPalettesMask;
     dest = &gPaletteBuffer[destPaletteNum * 16];
@@ -253,7 +253,7 @@ void LoadPalettes(const u8* src, s32 destPaletteNum, s32 numPalettes) {
 
 void SetColor(u32 colorIndex, u32 color) {
     gPaletteBuffer[colorIndex] = color;
-    gUsedPalettes |= 1 << (colorIndex / 16);
+    USE_PALETTE(colorIndex / 16);
 }
 
 void SetFillColor(u32 color, u32 disable_layers) {

@@ -23,6 +23,7 @@
 #include "subtask.h"
 #include "ui.h"
 #include "affine.h"
+#include "pauseMenu.h"
 
 void sub_080A4DA8(u32);
 void sub_080A4B44(void);

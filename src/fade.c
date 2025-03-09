@@ -1,6 +1,7 @@
 #include "global.h"
 #include "save.h"
 #include "structures.h"
+#include "vram.h"
 #include "screen.h"
 #include "common.h"
 

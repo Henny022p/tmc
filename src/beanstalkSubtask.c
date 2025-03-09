@@ -21,6 +21,7 @@
 #include "tiles.h"
 #include "affine.h"
 #include "subtask.h"
+#include "ui.h"
 
 extern void sub_0807C898(void);
 extern void sub_0805BB74(s32);

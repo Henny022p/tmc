@@ -188,7 +188,7 @@ void Subtask_PortalCutscene_0(void) {
     LoadPaletteGroup(ptr->paletteGroup);
     LoadGfxGroup(ptr->gfxGroup);
     MemCopy(gPaletteBuffer + 3 * 16, gPaletteBuffer + 21 * 16, 16 * 2);
-    gUsedPalettes |= 1 << 21;
+    USE_PALETTE(21);
     EraseAllEntities();
     LoadRoomEntityList(gUnk_080D4110[portalId]);
     ClearEventPriority();

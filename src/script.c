@@ -19,6 +19,7 @@
 #include "ui.h"
 #include "save.h"
 #include "subtask.h"
+#include "pauseMenu.h"
 #include "structures.h"
 
 void InitScriptExecutionContext(ScriptExecutionContext* context, Script* script);
