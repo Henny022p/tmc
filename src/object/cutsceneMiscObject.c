@@ -554,7 +554,7 @@ void sub_08095288(CutsceneMiscObjectEntity* this) {
         InitAnimationForceUpdate(super, 0);
     }
     if (super->subAction != 0) {
-        if ((u32)sub_080044EC(super, 0x1800) <= 1) {
+        if ((u32)GravityUpdateWithBounce(super, 0x1800) <= 1) {
             super->subAction = 0;
             SetAffineInfo(super, 0x100, 0x100, 0xC000);
         } else {

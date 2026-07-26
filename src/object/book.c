@@ -130,7 +130,7 @@ void Book_Action2(Entity* this) {
 void Book_Action3(Entity* this) {
     Entity* fx;
 
-    if (sub_080044EC(this, 0x2800) != 1) {
+    if (GravityUpdateWithBounce(this, 0x2800) != 1) {
         return;
     }
 

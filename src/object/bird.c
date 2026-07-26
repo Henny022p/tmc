@@ -125,7 +125,7 @@ void Bird_Type1_Action1_Subaction0(Entity* this) {
 void Bird_Type1_Action1_Subaction1(Entity* this) {
     Entity* fx;
 
-    if (sub_080044EC(this, 0x1800) < 2) {
+    if (GravityUpdateWithBounce(this, 0x1800) < 2) {
         this->type = 2;
         this->action = 1;
         this->z.WORD = 0;

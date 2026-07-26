@@ -51,7 +51,7 @@ void ObjectA2_Action1(Entity* this) {
     LinearMoveUpdate(this);
 #ifndef EU
     if (gSaveHeader->language < 2) {
-        if (sub_080044EC(this, 0x2000) < 2) {
+        if (GravityUpdateWithBounce(this, 0x2000) < 2) {
             this->z.WORD = 0;
             this->action = 2;
             InitializeAnimation(this, 1);
@@ -61,7 +61,7 @@ void ObjectA2_Action1(Entity* this) {
         }
     } else {
 #endif
-        switch (sub_080044EC(this, 0x2000)) {
+        switch (GravityUpdateWithBounce(this, 0x2000)) {
             default:
                 this->timer++;
                 break;

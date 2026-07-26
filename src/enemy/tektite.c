@@ -141,7 +141,7 @@ void sub_0802F300(Entity* this) {
     temp = this->z.HALF.HI;
     rand = Random() & 0xf;
 
-    if (sub_080044EC(this, this->field_0x80.HWORD) == 1) {
+    if (GravityUpdateWithBounce(this, this->field_0x80.HWORD) == 1) {
         this->action = 3;
         this->subAction = 0;
         if (this->type != 0) {

@@ -242,7 +242,7 @@ void sub_0802CAF8(Entity* this) {
     if (--this->timer == 0) {
         sub_0802CBC4(this);
     } else {
-        if (this->field_0x80.HALF.HI && sub_080044EC(this, 0x2800) == 1) {
+        if (this->field_0x80.HALF.HI && GravityUpdateWithBounce(this, 0x2800) == 1) {
             EnqueueSFX(SFX_PLACE_OBJ);
         }
         sub_0802CC18(this);

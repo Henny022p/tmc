@@ -113,7 +113,7 @@ void sub_080218CC(Entity* this) {
     GetNextFrame(this);
     if (this->frame & 1) {
         ProcessMovement2(this);
-        if (sub_080044EC(this, 0x1c00) == 0)
+        if (GravityUpdateWithBounce(this, 0x1c00) == 0)
             this->frameDuration = 1;
     }
 

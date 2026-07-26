@@ -265,7 +265,7 @@ void VaatiTransfiguredType0Action3(Entity* this) {
 
     switch (this->field_0x80.HALF.LO) {
         case 0:
-            uVar4 = sub_080044EC(this, 0x2800);
+            uVar4 = GravityUpdateWithBounce(this, 0x2800);
             if (uVar4 != 1)
                 break;
             this->field_0x80.HALF.LO = 1;

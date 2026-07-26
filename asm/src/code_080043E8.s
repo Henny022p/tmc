@@ -138,8 +138,11 @@ _080044E0: .4byte gUnk_02024048
 _080044E4: .4byte gUnk_02021F20
 _080044E8: .4byte gPlayerEntity
 
-	thumb_func_start sub_080044EC
-sub_080044EC: @ 0x080044EC
+@ r0 = Entity*
+@ r1 = Gravity strength
+@ returns 2 while falling, 1 on bounce, 0 when settled
+	thumb_func_start GravityUpdateWithBounce
+GravityUpdateWithBounce: @ 0x080044EC
 	ldr r2, [r0, #0x34]
 	ldr r3, [r0, #0x20]
 	subs r2, r2, r3

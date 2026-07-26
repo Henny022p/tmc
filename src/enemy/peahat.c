@@ -229,7 +229,7 @@ void Peahat_ChargeEnd(Entity* this) {
 void Peahat_Stunned(Entity* this) {
     switch (this->animationState) {
         default:
-            if (sub_080044EC(this, 0x1800) == 0) {
+            if (GravityUpdateWithBounce(this, 0x1800) == 0) {
                 this->action = 6;
                 this->timer = 240;
                 this->subtimer = 10;

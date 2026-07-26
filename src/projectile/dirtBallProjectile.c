@@ -120,7 +120,7 @@ void DirtBallProjectile_Action2(Entity* this) {
         FreeCarryEntity(entity);
         CopyPosition(this, entity);
     }
-    if (sub_080044EC(this, 0x2800) != 1) {
+    if (GravityUpdateWithBounce(this, 0x2800) != 1) {
         return;
     }
 

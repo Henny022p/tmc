@@ -153,7 +153,7 @@ void sub_0802B880(Entity* this) {
 
 void sub_0802B8B0(Entity* this) {
     ProcessMovement2(this);
-    switch (sub_080044EC(this, 0x1800)) {
+    switch (GravityUpdateWithBounce(this, 0x1800)) {
         case 0:
             this->action = 7;
             this->timer = 150;

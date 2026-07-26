@@ -109,7 +109,7 @@ void DekuSeedProjectile_Action3(Entity* this) {
 void DekuSeedProjectile_Action4(Entity* this) {
     GetNextFrame(this);
     ProcessMovement3(this);
-    switch (sub_080044EC(this, 0x2800)) {
+    switch (GravityUpdateWithBounce(this, 0x2800)) {
         case 0:
             DeleteThisEntity();
             return;

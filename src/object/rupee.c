@@ -45,7 +45,7 @@ void Rupee_Action_1(Entity* ent) {
     if (ent->child->next == NULL) {
         ent->action = 2;
     } else {
-        u32 iVar1 = sub_080044EC(ent, 10240);
+        u32 iVar1 = GravityUpdateWithBounce(ent, 10240);
         if (iVar1 == 0) {
             ent->action = 2;
         }

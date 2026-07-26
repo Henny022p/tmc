@@ -181,7 +181,7 @@ void Rollobite_RolledUp(Entity* this) {
     if ((this->frame & ANIM_DONE) == 0)
         GetNextFrame(this);
 
-    unk = sub_080044EC(this, 0x2800);
+    unk = GravityUpdateWithBounce(this, 0x2800);
 
     if (unk == 0) {
         if (--this->timer == 0) {

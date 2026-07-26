@@ -64,7 +64,7 @@ void BoneProjectile_Action3(Entity* this) {
     this->spriteSettings.draw ^= 1;
     LinearMoveUpdate(this);
     GetNextFrame(this);
-    if (sub_080044EC(this, 0x1800) == 0) {
+    if (GravityUpdateWithBounce(this, 0x1800) == 0) {
         DeleteEntity(this);
     }
 }

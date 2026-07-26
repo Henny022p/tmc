@@ -60,7 +60,7 @@ void RockProjectile_Action2(Entity* this) {
 void RockProjectile_Action3(Entity* this) {
     GetNextFrame(this);
     ProcessMovement3(this);
-    switch (sub_080044EC(this, 0x2800)) {
+    switch (GravityUpdateWithBounce(this, 0x2800)) {
         case 0:
             DeleteEntity(this);
             return;

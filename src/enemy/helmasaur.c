@@ -218,7 +218,7 @@ void sub_0802BEBC(Entity* this) {
     this->direction ^= 0x10;
     ProcessMovement2(this);
     this->direction ^= 0x10;
-    if (!sub_080044EC(this, Q_16_16(0.125))) {
+    if (!GravityUpdateWithBounce(this, Q_16_16(0.125))) {
         sub_0802C1C0(this);
     }
 }

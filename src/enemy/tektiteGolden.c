@@ -126,7 +126,7 @@ void sub_08038048(Entity* this) {
     temp = this->z.HALF.HI;
     rand = Random() & 0xf;
 
-    if (sub_080044EC(this, 0x3000) == 1) {
+    if (GravityUpdateWithBounce(this, 0x3000) == 1) {
         this->action = 3;
         this->subAction = 0;
         this->timer = 20;

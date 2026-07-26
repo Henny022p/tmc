@@ -161,7 +161,7 @@ void ObjectA8_Action3(ObjectA8Entity* this) {
     ProcessMovement1(super);
     if ((AnyPrioritySet() == 0) && (super->type == 0)) {
         if (((gRoomTransition.frameCount & 1) != 0) && (--super->timer == 0)) {
-            sub_08081404(super, 0);
+            DeleteThisEntityWithFlag(super, FALSE);
         }
         if (super->timer < 0x3c) {
             super->spriteSettings.draw ^= 1;
@@ -171,7 +171,7 @@ void ObjectA8_Action3(ObjectA8Entity* this) {
 
 void ObjectA8_Action4(ObjectA8Entity* this) {
     if (*(u16*)&super->child->kind != 0xb08) {
-        sub_08081404(super, 0);
+        DeleteThisEntityWithFlag(super, FALSE);
     } else {
         CopyPosition(super->child, super);
         super->z.HALF.HI--;
@@ -218,7 +218,7 @@ void ObjectA8_Action6(ObjectA8Entity* this) {
     if (--super->subtimer == 0) {
         super->subtimer = 6;
         if (--super->spriteOffsetY < -0x16) {
-            sub_08081404(super, 1);
+            DeleteThisEntityWithFlag(super, TRUE);
         }
     }
     if (super->spriteOffsetY < -0x11) {

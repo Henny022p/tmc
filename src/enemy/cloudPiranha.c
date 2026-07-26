@@ -178,7 +178,7 @@ void CloudPiranha_Action3(CloudPiranhaEntity* this) {
 void CloudPiranha_Action4(CloudPiranhaEntity* this) {
     Entity* effect;
     sub_080387F0(this);
-    if (sub_080044EC(super, 0x1800) == 1) {
+    if (GravityUpdateWithBounce(super, 0x1800) == 1) {
         super->action = 1;
         super->hitType = 0x72;
         super->timer = 1;

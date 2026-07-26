@@ -118,7 +118,7 @@ void Mask_Action2(Entity* this) {
 
         CreateRandomItemDrop(this, 3);
     } else {
-        sub_080044EC(this, this->field_0x78.HWORD);
+        GravityUpdateWithBounce(this, this->field_0x78.HWORD);
 
         if (this->z.HALF.HI == 0) {
             this->timer++;
