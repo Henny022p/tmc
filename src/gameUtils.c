@@ -456,7 +456,7 @@ void DisplayEzloMessage(void) {
     } else {
         height = gRoomTransition.hint_height;
     }
-    MessageAtHeight(gRoomTransition.hint_idx, height);
+    MessageAtHeight(3, height);
 }
 
 #if defined(USA) || defined(DEMO_USA) || defined(DEMO_JP)
